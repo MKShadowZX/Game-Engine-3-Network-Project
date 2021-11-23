@@ -241,8 +241,11 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         {
             item.GetComponent<PlayerItemInfoUI>().SetReadyState((bool)_isRemotePlayerReady);
         }
+    }
 
-
+    void RemovePlayerListItem(Player player)
+    {
+        playerGODict.Remove(player.ActorNumber);
     }
 
     
@@ -261,7 +264,12 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
             yield return null;
         }
 
-        Debug.Log(_playerName + " has disconnected.");
+        Debug.Log("<color=cyan> User: " + PhotonNetwork.LocalPlayer.NickName + " left "
+            + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
+            + PhotonNetwork.CurrentRoom.PlayerCount + "/ "
+            + PhotonNetwork.CurrentRoom.MaxPlayers + "</color>");
+
+        RemovePlayerListItem(PhotonNetwork.LocalPlayer);
 
         roomLobbyPanel.SetActive(false);
         gameLobbyOptionsPanel.SetActive(true);
