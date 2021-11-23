@@ -105,6 +105,8 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     }
 
+
+
     void CreateRoom()
     {
 
@@ -241,6 +243,11 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         }
 
 
+    }
+
+    public void OnPlayerLeave()
+    {
+        PhotonNetwork.LeaveRoom();
     }
 
     #region JOIN_RANDOM_ROOM

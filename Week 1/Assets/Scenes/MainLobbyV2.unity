@@ -534,6 +534,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 755690306}
     m_Modifications:
+    - target: {fileID: 3453697372053522525, guid: bb722102fea375c43af920f6d7ab0384, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1424008087}
+    - target: {fileID: 3453697372053522525, guid: bb722102fea375c43af920f6d7ab0384, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPlayerLeave
+      objectReference: {fileID: 0}
+    - target: {fileID: 3453697372053522525, guid: bb722102fea375c43af920f6d7ab0384, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NetworkMgr, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3453697372308079333, guid: bb722102fea375c43af920f6d7ab0384, type: 3}
       propertyPath: m_Interactable
       value: 0
