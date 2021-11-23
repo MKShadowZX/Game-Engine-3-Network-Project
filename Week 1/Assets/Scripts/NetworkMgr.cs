@@ -188,6 +188,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        playerListHolder.DestroyChildren();//
         joiningRoomPanel.SetActive(false);
         roomLobbyPanel.SetActive(true);
 
@@ -210,7 +211,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         }
 
     }
-
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -243,12 +243,10 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         }
     }
 
-    void RemovePlayerListItem(Player player)
+    public override void OnLeftRoom()
     {
-        playerGODict.Remove(player.ActorNumber);
+        playerListHolder.DestroyChildren();
     }
-
-    
 
     public void OnPlayerLeave()
     {
@@ -264,12 +262,10 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
             yield return null;
         }
 
-        Debug.Log("<color=cyan> User: " + PhotonNetwork.LocalPlayer.NickName + " left "
+        Debug.Log("<color=cyan> User: " + PhotonNetwork.LocalPlayer.NickName + " has left the room."
             + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
             + PhotonNetwork.CurrentRoom.PlayerCount + "/ "
             + PhotonNetwork.CurrentRoom.MaxPlayers + "</color>");
-
-        RemovePlayerListItem(PhotonNetwork.LocalPlayer);
 
         roomLobbyPanel.SetActive(false);
         gameLobbyOptionsPanel.SetActive(true);
