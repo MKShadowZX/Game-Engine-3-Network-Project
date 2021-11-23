@@ -188,7 +188,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        playerListHolder.DestroyChildren();//
         joiningRoomPanel.SetActive(false);
         roomLobbyPanel.SetActive(true);
 
@@ -245,7 +244,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        playerListHolder.DestroyChildren();
+        
     }
 
     public void OnPlayerLeave()
