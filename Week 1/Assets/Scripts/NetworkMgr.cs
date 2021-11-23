@@ -245,13 +245,22 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     }
 
+    
+
     public void OnPlayerLeave()
     {
-        PhotonNetwork.Disconnect();
+        StartCoroutine(PlayerLeaveRoom());
     }
 
-    public override void OnDisconnected(DisconnectCause cause)
+    IEnumerator PlayerLeaveRoom()
     {
+        PhotonNetwork.LeaveRoom();
+
+        while (PhotonNetwork.InRoom)
+        {
+            yield return null;
+        }
+
         Debug.Log(_playerName + " has disconnected.");
 
         roomLobbyPanel.SetActive(false);
