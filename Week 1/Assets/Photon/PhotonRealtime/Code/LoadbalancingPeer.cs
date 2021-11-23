@@ -2010,6 +2010,8 @@ namespace Photon.Realtime
         /// </remarks>
         public bool IsDefault { get { return string.IsNullOrEmpty(this.Name); } }
 
+        public object CustomPropereties { get; set; }
+
 
         /// <summary>
         /// Creates a TypedLobby instance. Unless Name is changed, this points to the "default lobby" (<see cref="TypedLobby.Default"/>).

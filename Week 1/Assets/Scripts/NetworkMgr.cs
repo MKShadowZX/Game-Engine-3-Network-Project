@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
+using ExitGames.Client.Photon;
 
 public class NetworkMgr : MonoBehaviourPunCallbacks
 {
@@ -44,8 +46,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
     public Transform playerListHolder;
 
     public GameObject playerListItemPrefab;
-
-
 
 
     private Dictionary<int, GameObject> playerGODict;
@@ -242,10 +242,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnLeftRoom()
-    {
-        
-    }
 
     public void OnPlayerLeave()
     {
@@ -353,4 +349,31 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
 
     #endregion
+
+
+    #region START_GAME
+
+    public void OnStartButtonClicked()
+    {
+        object gameModeCode;
+
+        if(PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("m", out gameModeCode))
+        {
+            if ((string)gameModeCode == "rm") PhotonNetwork.LoadLevel("RaceModeLevel");
+            else if ((string)gameModeCode == "dm")
+                PhotonNetwork.LoadLevel("DeathModeLevel");
+            else
+            {
+                Debug.Log("Didn't recognize the game mode code: " + gameModeCode);
+            }
+        }
+        else
+        {
+            Debug.Log("Can't find property 'm' in the room");
+        }
+
+    }
+
+    #endregion
+
 }
