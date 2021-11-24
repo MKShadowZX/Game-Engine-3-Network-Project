@@ -246,9 +246,9 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnLeftRoom()
+    public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Debug.Log("<color=cyan> User: " + PhotonNetwork.NickName + " has left the room."
+        Debug.Log("<color=cyan> User: " + otherPlayer.NickName + " has left the room."
             + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
             + PhotonNetwork.CurrentRoom.PlayerCount + "/ "
             + PhotonNetwork.CurrentRoom.MaxPlayers + "</color>");
