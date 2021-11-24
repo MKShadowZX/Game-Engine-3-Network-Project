@@ -249,7 +249,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         GameObject item = playerGODict[otherPlayer.ActorNumber];
-        Destroy(item);
+        //Destroy(item);
         playerGODict.Remove(otherPlayer.ActorNumber);
 
         object _isRemotePlayerReady;
