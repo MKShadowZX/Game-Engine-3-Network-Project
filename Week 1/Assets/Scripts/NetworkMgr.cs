@@ -261,14 +261,8 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         roomLobbyPanel.SetActive(false);
         gameLobbyOptionsPanel.SetActive(true);
 
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable()
-        {
-            {"pReady", false }
-        };
-
         foreach (GameObject player in playerGODict.Values)
         {
-            player.GetComponent<Player>().SetCustomProperties(properties);
             Destroy(player.gameObject);
         }
         
