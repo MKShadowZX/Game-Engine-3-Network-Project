@@ -246,6 +246,13 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnLeftRoom()
+    {
+        Debug.Log("<color=cyan> User: " + PhotonNetwork.LocalPlayer.NickName + " has left the room."
+            + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
+            + PhotonNetwork.CurrentRoom.PlayerCount + "/ "
+            + PhotonNetwork.CurrentRoom.MaxPlayers + "</color>");
+    }
 
     public void OnPlayerLeave()
     {
@@ -260,11 +267,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         {
             yield return null;
         }
-
-        Debug.Log("<color=cyan> User: " + PhotonNetwork.LocalPlayer.NickName + " has left the room."
-            + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
-            + PhotonNetwork.CurrentRoom.PlayerCount + "/ "
-            + PhotonNetwork.CurrentRoom.MaxPlayers + "</color>");
 
         roomLobbyPanel.SetActive(false);
         gameLobbyOptionsPanel.SetActive(true);
