@@ -281,17 +281,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public void OnPlayerLeave()
     {
-        StartCoroutine(PlayerLeaveRoom());
-    }
-
-    IEnumerator PlayerLeaveRoom()
-    {
         PhotonNetwork.LeaveRoom();
-
-        while (PhotonNetwork.InRoom)
-        {
-            yield return null;
-        }
     }
 
     #region JOIN_RANDOM_ROOM
