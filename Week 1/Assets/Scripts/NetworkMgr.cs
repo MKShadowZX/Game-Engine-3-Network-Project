@@ -256,6 +256,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         };
 
         otherPlayer.SetCustomProperties(properties);
+        item.GetComponent<PlayerItemInfoUI>().SetReadyState(false);
 
         Debug.Log("<color=cyan> User: " + otherPlayer.NickName + " has left the room."
             + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
