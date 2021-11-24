@@ -272,9 +272,9 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         {
             Destroy(player.gameObject);
         }
-
+        */
         playerGODict.Clear();
-        playerGODict = null;*/
+        //playerGODict = null;
     }
 
     public void OnPlayerLeave()
