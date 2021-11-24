@@ -250,14 +250,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         Destroy(item);
         playerGODict.Remove(otherPlayer.ActorNumber);
 
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable()
-        {
-            {"pReady", false }
-        };
-
-        otherPlayer.SetCustomProperties(properties);
-        item.GetComponent<PlayerItemInfoUI>().SetReadyState(false);
-
         Debug.Log("<color=cyan> User: " + otherPlayer.NickName + " has left the room."
             + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
             + PhotonNetwork.CurrentRoom.PlayerCount + "/ "
@@ -269,8 +261,14 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         roomLobbyPanel.SetActive(false);
         gameLobbyOptionsPanel.SetActive(true);
 
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable()
+        {
+            {"pReady", false }
+        };
+
         foreach (GameObject player in playerGODict.Values)
         {
+            player.GetComponent<Player>().SetCustomProperties(properties);
             Destroy(player.gameObject);
         }
         
