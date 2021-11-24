@@ -248,8 +248,8 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        GameObject item = playerGODict[otherPlayer.ActorNumber];
-        //Destroy(item);
+        GameObject item = playerGODict[otherPlayer.ActorNumber].gameObject;
+        Destroy(item);
         playerGODict.Remove(otherPlayer.ActorNumber);
 
         object _isRemotePlayerReady;
@@ -265,6 +265,20 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
             + PhotonNetwork.CurrentRoom.MaxPlayers + "</color>");
     }
 
+    public override void OnLeftRoom()
+    {
+        roomLobbyPanel.SetActive(false);
+        gameLobbyOptionsPanel.SetActive(true);
+
+        foreach (GameObject player in playerGODict.Values)
+        {
+            Destroy(player.gameObject);
+        }
+
+        playerGODict.Clear();
+        playerGODict = null;
+    }
+
     public void OnPlayerLeave()
     {
         StartCoroutine(PlayerLeaveRoom());
@@ -278,9 +292,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         {
             yield return null;
         }
-
-        roomLobbyPanel.SetActive(false);
-        gameLobbyOptionsPanel.SetActive(true);
     }
 
     #region JOIN_RANDOM_ROOM
