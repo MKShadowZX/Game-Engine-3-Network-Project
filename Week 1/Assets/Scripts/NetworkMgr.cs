@@ -250,7 +250,12 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         Destroy(item);
         playerGODict.Remove(otherPlayer.ActorNumber);
 
-        otherPlayer.CustomProperties.Clear();
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable()
+        {
+            {"pReady", false }
+        };
+
+        otherPlayer.SetCustomProperties(properties);
 
         Debug.Log("<color=cyan> User: " + otherPlayer.NickName + " has left the room."
             + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
