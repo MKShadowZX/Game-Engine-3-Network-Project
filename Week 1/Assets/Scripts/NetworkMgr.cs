@@ -49,7 +49,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
 
     private Dictionary<int, GameObject> playerGODict;
-    private Dictionary<string, RoomInfo> cachedRoomList;
 
     private void Awake()
     {
@@ -193,7 +192,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        cachedRoomList.Clear();
         joiningRoomPanel.SetActive(false);
         roomLobbyPanel.SetActive(true);
 
@@ -219,7 +217,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-
         Debug.Log("<color=cyan> Remote User: " + newPlayer.NickName + " joined "
             + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
             + PhotonNetwork.CurrentRoom.PlayerCount + " / "
@@ -231,7 +228,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
             + PhotonNetwork.CurrentRoom.MaxPlayers;
 
         CreatePlayerListItem(newPlayer);
-
     }
 
     void CreatePlayerListItem(Player newPlayer)
@@ -284,39 +280,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
     public void OnPlayerLeave()
     {
         PhotonNetwork.LeaveRoom();
-    }
-
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        UpdateCachedRoomList(roomList);
-    }
-
-    private void UpdateCachedRoomList(List<RoomInfo> roomList)
-    {
-        foreach (RoomInfo info in roomList)
-        {
-            // Remove room from cached room list if it got closed, became invisible or was marked as removed
-            if (!info.IsOpen || !info.IsVisible || info.RemovedFromList)
-            {
-                if (cachedRoomList.ContainsKey(info.Name))
-                {
-                    cachedRoomList.Remove(info.Name);
-                }
-
-                continue;
-            }
-
-            // Update cached room info
-            if (cachedRoomList.ContainsKey(info.Name))
-            {
-                cachedRoomList[info.Name] = info;
-            }
-            // Add new room info to cache
-            else
-            {
-                cachedRoomList.Add(info.Name, info);
-            }
-        }
     }
 
     #region JOIN_RANDOM_ROOM
