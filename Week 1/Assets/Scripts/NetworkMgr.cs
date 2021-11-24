@@ -268,10 +268,10 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         roomLobbyPanel.SetActive(false);
         gameLobbyOptionsPanel.SetActive(true);
 
-        foreach (GameObject player in playerGODict.Values)
+        /*foreach (GameObject player in playerGODict.Values)
         {
             Destroy(player.gameObject);
-        }
+        }*/
 
         playerGODict.Clear();
         playerGODict = null;
