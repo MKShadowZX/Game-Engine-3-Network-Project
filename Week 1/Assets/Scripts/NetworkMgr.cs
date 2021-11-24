@@ -248,6 +248,8 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        playerGODict.Remove(otherPlayer.ActorNumber);
+
         Debug.Log("<color=cyan> User: " + otherPlayer.NickName + " has left the room."
             + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
             + PhotonNetwork.CurrentRoom.PlayerCount + "/ "
