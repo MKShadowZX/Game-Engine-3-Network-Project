@@ -250,9 +250,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         Destroy(item);
         playerGODict.Remove(otherPlayer.ActorNumber);
 
-        //object _isRemotePlayerReady;
-
-        item.GetComponent<PlayerItemInfoUI>().SetReadyState(false);
+        otherPlayer.CustomProperties.Clear();
 
         Debug.Log("<color=cyan> User: " + otherPlayer.NickName + " has left the room."
             + PhotonNetwork.CurrentRoom.Name + " ||| Players: "
