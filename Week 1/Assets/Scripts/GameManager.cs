@@ -2,9 +2,13 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
+    public Text countdownTimerText;
+
     //Drag and drop the empty game objects that denote the player start points.
     public List<Transform> playerStartPoints;
 
@@ -14,6 +18,18 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public GameObject myCarInstance;
 
+    //Lazy Singleton
+    #region LAZY_SINGLETON_AND_AWAKE
+    public static GameManager instance = null;
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
 
     private void Start()
     {

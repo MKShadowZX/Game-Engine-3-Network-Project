@@ -55,6 +55,10 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         playerGODict = new Dictionary<int, GameObject>(); //initialize this before we use it later...
     }
 
+    private void Start()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
 
     //MasterClient -> Is the one who creates the room generally, this of this as the host
     //Client -> All other clients who joins an existing room created by the master client
@@ -375,5 +379,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
     }
 
     #endregion
+
+
 
 }

@@ -94,7 +94,11 @@ GameObject:
   - component: {fileID: 577278087779053400}
   - component: {fileID: 4328383640022787686}
   - component: {fileID: 8733406740461849504}
-  - component: {fileID: -2681589608014571120}
+  - component: {fileID: 8039115053725124814}
+  - component: {fileID: 1700553377415468612}
+  - component: {fileID: -4115053717193355293}
+  - component: {fileID: -5847685847639097953}
+  - component: {fileID: 557882124598511774}
   m_Layer: 0
   m_Name: RC_Player_CarSport
   m_TagString: Untagged
@@ -147,7 +151,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 4}
   m_Center: {x: 0, y: 0.75, z: -0.21}
---- !u!114 &-2681589608014571120
+--- !u!114 &8039115053725124814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,16 +163,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 0
+  ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -5847685847639097953}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1700553377415468612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523779623789243299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e246be3b487d5f4ea36dbc598d7c638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: {x: 0, y: 0, z: 50}
+  rotationTorque: {x: 0, y: 10, z: 0}
+--- !u!114 &-4115053717193355293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523779623789243299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5644113a7e033154484cfb0e88770731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countdownStartValue: 3
+--- !u!114 &-5847685847639097953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523779623789243299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &557882124598511774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523779623789243299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69870cd23db9ad24d9e53ce16c96d047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6211801577416648885
 GameObject:
   m_ObjectHideFlags: 0
