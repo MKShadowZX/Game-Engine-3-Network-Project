@@ -270,6 +270,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
         foreach (GameObject player in playerGODict.Values)
         {
+            player.GetComponent<PlayerItemInfoUI>().readyImg.enabled = false;
             Destroy(player.gameObject);
         }
         

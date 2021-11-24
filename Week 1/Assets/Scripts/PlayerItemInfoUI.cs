@@ -50,10 +50,6 @@ public class PlayerItemInfoUI : MonoBehaviour
         {
             readyImg.enabled = true;
         }
-        else
-        {
-            readyImg.enabled = false;
-        }
     }
 
 
