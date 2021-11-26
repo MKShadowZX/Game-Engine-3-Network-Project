@@ -272,6 +272,13 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public void OnPlayerLeave()
     {
+        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable()
+        {
+            {"pReady", false }
+
+        };
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
         PhotonNetwork.LeaveRoom();
     }
 

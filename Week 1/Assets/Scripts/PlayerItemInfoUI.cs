@@ -12,7 +12,7 @@ public class PlayerItemInfoUI : MonoBehaviour
 
     public void Init(int pNum, string pName)
     {
-        playerName.text = pNum + ". " + pName;
+        playerName.text = pName;
 
         if (PhotonNetwork.LocalPlayer.ActorNumber != pNum)
         {
