@@ -9,8 +9,6 @@ using ExitGames.Client.Photon;
 
 public class NetworkMgr : MonoBehaviourPunCallbacks
 {
-    
-
     private string _playerName;
     private string _roomName;
     private string _gameMode = "rm";
@@ -108,8 +106,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         gameLobbyOptionsPanel.SetActive(true);
 
     }
-
-
 
     void CreateRoom()
     {
@@ -308,8 +304,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("<color=red> Join random room failed with message = " + message + "</color>");
-
-
     }
 
     #endregion
@@ -329,16 +323,12 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         strtGameButton.interactable = IsGameReadyToStart();
     }
 
-
     #endregion
 
-    
     #region GAME_READ_FUNCTION
-
 
     private bool IsGameReadyToStart()
     {
-
         if (!PhotonNetwork.IsMasterClient) return false;
 
         foreach(Player p in PhotonNetwork.PlayerList)
@@ -346,26 +336,19 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
             object _isRemotePlayerReady;
             if(p.CustomProperties.TryGetValue("pReady", out _isRemotePlayerReady))
             {
-
                 if (!(bool)_isRemotePlayerReady)
                     return false;
-
             }
             else
             {
                 Debug.LogError("Can't find pReady propert. Did you mis-spell in this function or in PlayerItemUIInfo?");
                 return false;
             }
-
         }
-
         return true;
     }
 
-
-
     #endregion
-
 
     #region START_GAME
 
@@ -387,11 +370,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         {
             Debug.Log("Can't find property 'm' in the room");
         }
-
     }
 
     #endregion
-
-
-
 }
