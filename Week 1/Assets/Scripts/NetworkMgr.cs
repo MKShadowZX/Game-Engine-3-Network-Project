@@ -36,6 +36,10 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public Button strtGameButton;
 
+    public RoomItem roomItemPrefab;
+    List<RoomItem> roomItemsList = new List<RoomItem>();
+    public Transform contentObj;
+
     //References from RoomUserPanel
     public Text roomInfoText;
     public Text gameTypeText;
@@ -44,7 +48,6 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
     public Transform playerListHolder;
 
     public GameObject playerListItemPrefab;
-
 
     private Dictionary<int, GameObject> playerGODict;
 
@@ -276,6 +279,27 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
         PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        UpdateRoomList(roomList);
+    }
+
+    void UpdateRoomList(List<RoomInfo> list)
+    {
+        foreach (RoomItem item in roomItemsList)
+        {
+            Destroy(item.gameObject);
+        }
+        roomItemsList.Clear();
+
+        foreach (RoomInfo room in list)
+        {
+            RoomItem newRoom = Instantiate(roomItemPrefab, contentObj);
+            newRoom.SetRoomName(room.Name);
+            roomItemsList.Add(newRoom);
+        }
     }
 
     #region JOIN_RANDOM_ROOM
