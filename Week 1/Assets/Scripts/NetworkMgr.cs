@@ -302,6 +302,11 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         }
     }
 
+    public void JoinRoom(string roomName)
+    {
+        PhotonNetwork.JoinRoom(roomName);
+    }
+
     #region JOIN_RANDOM_ROOM
 
     /// <summary>
