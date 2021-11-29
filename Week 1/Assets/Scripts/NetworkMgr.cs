@@ -36,7 +36,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public Button strtGameButton;
 
-    public RoomItem roomItemPrefab;
+    public GameObject roomItemPrefab;
     List<RoomItem> roomItemsList = new List<RoomItem>();
     public Transform contentObj;
 
@@ -296,9 +296,9 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
         foreach (RoomInfo room in list)
         {
-            RoomItem newRoom = Instantiate(roomItemPrefab, contentObj);
-            newRoom.SetRoomName(room.Name);
-            roomItemsList.Add(newRoom);
+            GameObject newRoom = Instantiate(roomItemPrefab, contentObj);
+            newRoom.GetComponent<RoomItem>().SetRoomName(room.Name);
+            roomItemsList.Add(newRoom.GetComponent<RoomItem>());
         }
     }
 

@@ -3045,7 +3045,7 @@ MonoBehaviour:
   creatingRoomPanel: {fileID: 180878935}
   roomLobbyPanel: {fileID: 1711871413}
   strtGameButton: {fileID: 1023853643}
-  roomItemPrefab: {fileID: 1997736066237064795, guid: 3ab142cbe19c4e04cb35d00558ca3704, type: 3}
+  roomItemPrefab: {fileID: 2370089709004187895, guid: 3ab142cbe19c4e04cb35d00558ca3704, type: 3}
   contentObj: {fileID: 676745060}
   roomInfoText: {fileID: 516634343}
   gameTypeText: {fileID: 642820818}
