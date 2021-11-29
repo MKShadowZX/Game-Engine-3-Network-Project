@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CarMovementController : MonoBehaviour
 {
-
+    public CarSO car;
     Rigidbody rb;
     public Vector3 thrust = new Vector3(0, 0, 50.0f);
     public Vector3 rotationTorque = new Vector3(0, 10.0f, 0);
@@ -15,7 +15,7 @@ public class CarMovementController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        thrust = new Vector3(0, 0, car.speed);
     }
 
     /*** enables car movement after countdown is over ***/

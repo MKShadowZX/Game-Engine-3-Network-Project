@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: -5847685847639097953}
   - component: {fileID: 557882124598511774}
   m_Layer: 0
-  m_Name: RC_Player_CarSport
+  m_Name: RC_Player_CarSport 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e246be3b487d5f4ea36dbc598d7c638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  car: {fileID: 11400000, guid: af16b4923742b624f8aca0da8b5482ec, type: 2}
   thrust: {x: 0, y: 0, z: 50}
   rotationTorque: {x: 0, y: 10, z: 0}
 --- !u!114 &-4115053717193355293
@@ -318,19 +319,19 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: be3d49f1e2db54f4089c78594221e1e6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8f6c0d3f65bae204db38fe95a6cd43e4, type: 2}
+      objectReference: {fileID: 2100000, guid: 39f5522bb8de8fb43b7400617ab41966, type: 2}
     - target: {fileID: 2300002, guid: be3d49f1e2db54f4089c78594221e1e6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8f6c0d3f65bae204db38fe95a6cd43e4, type: 2}
+      objectReference: {fileID: 2100000, guid: 39f5522bb8de8fb43b7400617ab41966, type: 2}
     - target: {fileID: 2300004, guid: be3d49f1e2db54f4089c78594221e1e6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8f6c0d3f65bae204db38fe95a6cd43e4, type: 2}
+      objectReference: {fileID: 2100000, guid: 39f5522bb8de8fb43b7400617ab41966, type: 2}
     - target: {fileID: 2300006, guid: be3d49f1e2db54f4089c78594221e1e6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8f6c0d3f65bae204db38fe95a6cd43e4, type: 2}
+      objectReference: {fileID: 2100000, guid: 39f5522bb8de8fb43b7400617ab41966, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be3d49f1e2db54f4089c78594221e1e6, type: 3}
 --- !u!4 &6032675030936556416 stripped

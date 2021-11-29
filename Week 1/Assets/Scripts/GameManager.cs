@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public GameObject myCarInstance;
 
+    CarIndex carIndex;
+
     //Lazy Singleton
     #region LAZY_SINGLETON_AND_AWAKE
     public static GameManager instance = null;
@@ -39,16 +41,19 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        carIndex = FindObjectOfType<CarIndex>();
+
+        SpawnCar();
+    }
+
+    void SpawnCar()
+    {
         int actorNum = PhotonNetwork.LocalPlayer.ActorNumber;
+
         //Actor is 1-based. So we subtract 1 from it to get the index of the list.
         Vector3 startPos = playerStartPoints[actorNum - 1].position;
 
         //Note that we use PhotonNetwork.Instantiate instead of the regular Instantiate.
-        myCarInstance = PhotonNetwork.Instantiate(playerPrefebs[0].name, startPos, Quaternion.identity);
-
-
-
-
+        myCarInstance = PhotonNetwork.Instantiate(playerPrefebs[carIndex.index].name, startPos, Quaternion.identity);
     }
-
 }
