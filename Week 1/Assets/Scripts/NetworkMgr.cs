@@ -36,7 +36,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public Button strtGameButton;
 
-    public GameObject roomItemPrefab;
+    public RoomItem roomItemPrefab;
     List<RoomItem> roomItemsList = new List<RoomItem>();
     public Transform contentObj;
 
@@ -108,11 +108,11 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
         waitingToConnectPanel.SetActive(false);
         gameLobbyOptionsPanel.SetActive(true);
 
+        PhotonNetwork.JoinLobby();
     }
 
     void CreateRoom()
     {
-
         Photon.Realtime.RoomOptions ro = new Photon.Realtime.RoomOptions();
 
         ro.MaxPlayers = 4;
@@ -296,9 +296,9 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
         foreach (RoomInfo room in list)
         {
-            GameObject newRoom = Instantiate(roomItemPrefab, contentObj);
-            newRoom.GetComponent<RoomItem>().SetRoomName(room.Name);
-            roomItemsList.Add(newRoom.GetComponent<RoomItem>());
+            RoomItem newRoom = Instantiate(roomItemPrefab, contentObj);
+            newRoom.SetRoomName(room.Name);
+            roomItemsList.Add(newRoom);
         }
     }
 
