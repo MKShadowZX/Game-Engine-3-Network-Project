@@ -549,6 +549,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Speed: XXX'
       objectReference: {fileID: 0}
+    - target: {fileID: 3453697371792640364, guid: bb722102fea375c43af920f6d7ab0384, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bb9840b30fc45fc45b08074160c6775d, type: 3}
     - target: {fileID: 3453697371792640366, guid: bb722102fea375c43af920f6d7ab0384, type: 3}
       propertyPath: m_Name
       value: PlayerModelTemplate 1
@@ -4054,7 +4058,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5ff1415f4e2a0c14d804e113c72d9c21, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1864be62b24cd4846a4f770457002119, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4147,7 +4151,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5ff1415f4e2a0c14d804e113c72d9c21, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1acf3ec93a47a0845aea580bc852fb18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5119,7 +5123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5ff1415f4e2a0c14d804e113c72d9c21, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cc767278301a21440aed98de59d6e0dd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
