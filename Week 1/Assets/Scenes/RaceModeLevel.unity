@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 126533154}
   m_Layer: 0
   m_Name: LapTrigger3
-  m_TagString: Untagged
+  m_TagString: LapTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -999,7 +999,7 @@ GameObject:
   - component: {fileID: 470316410}
   m_Layer: 0
   m_Name: LapTrigger1
-  m_TagString: Untagged
+  m_TagString: LapTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1094,7 +1094,7 @@ GameObject:
   - component: {fileID: 518893668}
   m_Layer: 0
   m_Name: FinishTrigger
-  m_TagString: Untagged
+  m_TagString: FinishTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1591,7 +1591,7 @@ GameObject:
   - component: {fileID: 602747552}
   m_Layer: 0
   m_Name: LapTriggers
-  m_TagString: Untagged
+  m_TagString: LapTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1908,7 +1908,7 @@ GameObject:
   - component: {fileID: 891449157}
   m_Layer: 0
   m_Name: LapTrigger5
-  m_TagString: Untagged
+  m_TagString: LapTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2901,7 +2901,7 @@ GameObject:
   - component: {fileID: 1274624180}
   m_Layer: 0
   m_Name: LapTrigger2
-  m_TagString: Untagged
+  m_TagString: LapTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3015,7 +3015,7 @@ GameObject:
   - component: {fileID: 1291240285}
   m_Layer: 0
   m_Name: LapTrigger4
-  m_TagString: Untagged
+  m_TagString: LapTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
