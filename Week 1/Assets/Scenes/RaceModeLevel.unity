@@ -2861,6 +2861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa677eae7adfae449f5e99877083575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standingsUIList: []
   countdownTimerText: {fileID: 202273871}
   playerStartPoints:
   - {fileID: 843706494}
