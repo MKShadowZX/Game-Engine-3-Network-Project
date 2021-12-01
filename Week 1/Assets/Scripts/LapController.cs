@@ -17,11 +17,11 @@ public class LapController : MonoBehaviourPun
             //We passed through one of the lap triggers
             //To Do:
             //Send an update to refresh the car standings.
-            Debug.Log("Lap trigger crossed. Standings UI to be refreshed");
+            Debug.Log("<color= green>Lap trigger crossed. Standings UI to be refreshed</color>");
         }
         else if(other.gameObject.tag == "FinishTrigger")
         {
-            Debug.Log("Car reached the finish point...");
+            Debug.Log("<color= green>Car reached the finish point...</color>");
             EndRace();
         }
     }
