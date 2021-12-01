@@ -38,5 +38,32 @@ public class LapController : MonoBehaviourPun
         //control, steer, or move once it crosses the finish line.
 
         /**** TO BE COMPLETED BY EACH GROUP ****/
+
+        string currentPlayerNN = photonView.Owner.NickName;
+        object[] data = new object[]
+                   { currentPlayerNN, photonView.ViewID };
+
+        PhotonNetwork.RaiseEvent(
+           (byte)GameManager.raiseEventCodes.raceFinishUpdateRank
+           , data,
+           new Photon.Realtime.RaiseEventOptions()
+           { Receivers = Photon.Realtime.ReceiverGroup.MasterClient },
+           new ExitGames.Client.Photon.SendOptions()
+           { Reliability = false } //set to false to overwrite previous data 
+            );
+
+        Debug.Log("End race was called on " + photonView.ViewID);
+    }
+
+    private void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived +=
+            GameManager.instance.OnEventCallback;
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -=
+          GameManager.instance.OnEventCallback;
     }
 }
