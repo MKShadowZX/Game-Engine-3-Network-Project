@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class PlayerSync : MonoBehaviourPun
@@ -13,7 +14,7 @@ public class PlayerSync : MonoBehaviourPun
         GetComponent<CarMovementController>().enabled = photonView.IsMine;
         //Turn off car view if the current instance is not controlling this car.
         GetComponentInChildren<Camera>().gameObject.SetActive(photonView.IsMine);
-
+        GetComponentInChildren<Text>().text = photonView.Owner.NickName;
     }
 
     
