@@ -53,8 +53,16 @@ public class LapController : MonoBehaviourPun
             );
 
         Debug.Log("End race was called on " + photonView.ViewID);
-        OnDisable();
         photonView.GetComponent<CarMovementController>().enabled = false;
+
+        PhotonNetwork.RaiseEvent(
+           (byte)GameManager.raiseEventCodes.raceFinishCode
+           , data,
+           new Photon.Realtime.RaiseEventOptions()
+           { Receivers = Photon.Realtime.ReceiverGroup.MasterClient },
+           new ExitGames.Client.Photon.SendOptions()
+           { Reliability = false } //set to false to overwrite previous data 
+            );
     }
 
     private void OnEnable()
