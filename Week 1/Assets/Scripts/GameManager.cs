@@ -125,8 +125,8 @@ public class GameManager : MonoBehaviour
             playerRanks[indx].rank = rank;
 
             //Next step: Display which player just completed the race....
-            Debug.Log(playerRanks[indx].pv.Owner.NickName + " FINISHED  AT POSITION: " +
-                rank);
+            Debug.Log("<color=red>" + playerRanks[indx].pv.Owner.NickName + " FINISHED  AT POSITION: " +
+                rank + "</color>");
 
             //TO-DO (part of beta sprint 2 assignment)
             //Step 1:
