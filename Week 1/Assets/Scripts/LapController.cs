@@ -53,7 +53,7 @@ public class LapController : MonoBehaviourPun
             );
 
         Debug.Log("End race was called on " + photonView.ViewID);
-        this.enabled = false;
+        OnDisable();
         photonView.GetComponent<CarMovementController>().enabled = false;
     }
 
