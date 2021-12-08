@@ -20,6 +20,15 @@ public class GameManager : MonoBehaviour
 
     public Text countdownTimerText;
 
+    static int minuteCount;
+    static int secondCount;
+    static float milliSecondCount;
+    string totalTime;
+
+    bool isRaceStarting = false;
+
+    CarIndex carIndex;
+
     //Drag and drop the empty game objects that denote the player start points.
     public List<Transform> playerStartPoints;
 
@@ -28,8 +37,6 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public GameObject myCarInstance;
-
-    CarIndex carIndex;
 
     public List<GO_ID_Duo> playerRanks;
 
@@ -43,6 +50,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        playerRanks = new List<GO_ID_Duo>();
     }
     #endregion
 
@@ -118,25 +127,81 @@ public class GameManager : MonoBehaviour
 
 
             int indx = playerRanks.FindIndex(x => x.viewID == viewID);
-            //This will have nno effect on the masterclient as we already have the rank
+            //This will have no effect on the masterclient as we already have the rank
             //updated.
             //but on every other non-master client, this is important as those clients
             //won't have the rank data updated until we do the following
             playerRanks[indx].rank = rank;
 
             //Next step: Display which player just completed the race....
-            Debug.Log("<color=red>" + playerRanks[indx].pv.Owner.NickName + " FINISHED  AT POSITION: " +
-                rank + "</color>");
+            Debug.Log(playerRanks[indx].pv.Owner.NickName + " FINISHED  AT POSITION: " +
+                rank);
 
             //TO-DO (part of beta sprint 2 assignment)
             //Step 1:
             //Turn on the respective standing/rank's UI game Object
             //standingsUIList[_______].gameObject.SetActive(true);
+            standingsUIList[indx].gameObject.transform.SetAsLastSibling();
+            standingsUIList[indx].gameObject.SetActive(true);
             //Step 2:
             //Call  the 'UpdateInfo' function on that ui item and pass the 
             //photon player/car nickname, rank, and whether the car belongs to you
             //standingsUIList[_______].UpdateInfo( ________, ________ , __________);
+            CalculateTime();
+            playerRanks[indx].totalTime = totalTime;
+            standingsUIList[indx].UpdateInfo(playerRanks[indx].pv.Owner.NickName, playerRanks[indx].rank, playerRanks[indx].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
         }
 
+    }
+
+    private void Update()
+    {
+        if (isRaceStarting)
+        {
+            milliSecondCount += Time.deltaTime * 10;
+
+            if (milliSecondCount >= 10)
+            {
+                milliSecondCount = 0;
+                secondCount += 1;
+            }
+
+            if (secondCount >= 60)
+            {
+                secondCount = 0;
+                minuteCount += 1;
+            }
+        }
+    }
+
+    public void EnableRaceTimer()
+    {
+        isRaceStarting = true;
+    }
+
+    public void CalculateTime()
+    {
+        string minute;
+        string second;
+
+        if (minuteCount <= 9)
+        {
+            minute = "0" + minuteCount.ToString();
+        }
+        else
+        {
+            minute = minuteCount.ToString();
+        }
+
+        if (secondCount <= 9)
+        {
+            second = "0" + secondCount.ToString();
+        }
+        else
+        {
+            second = secondCount.ToString();
+        }
+
+        totalTime = minute + ":" + second + "." + milliSecondCount.ToString("F0");
     }
 }

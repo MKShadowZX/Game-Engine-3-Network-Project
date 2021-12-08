@@ -354,7 +354,7 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     #endregion
 
-    #region GAME_READ_FUNCTION
+    #region GAME_READY_FUNCTION
 
     private bool IsGameReadyToStart()
     {

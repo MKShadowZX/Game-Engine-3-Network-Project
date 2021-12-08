@@ -38,6 +38,7 @@ public class StartCountdownTimer : MonoBehaviourPun
     {
         //Call 'EnableMovement'
         GetComponent<CarMovementController>().EnableMovement();
+        GameManager.instance.EnableRaceTimer();
     }
 
     /// <summary>

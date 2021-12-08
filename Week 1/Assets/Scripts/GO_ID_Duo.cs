@@ -8,6 +8,7 @@ public class GO_ID_Duo
     public int rank;
     public GameObject go;
     public int viewID;
+    public string totalTime;
 
     public PhotonView pv { get => go.GetComponent<PhotonView>(); }
 
@@ -16,5 +17,6 @@ public class GO_ID_Duo
         viewID = vi;
         go = _go;
         rank = 0;
+        totalTime = "00:00.0";
     }
 }
