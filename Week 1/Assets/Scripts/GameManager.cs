@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
 
     public List<PlayerStandingUIItem> standingsUIList;
+    public List<PlayerStandingUIItem> playerRankUIList;
 
     public enum raiseEventCodes
     {
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour
     public GameObject myCarInstance;
 
     public List<GO_ID_Duo> playerRanks;
+
+    public GameObject gameOverPanel;
 
     //Lazy Singleton
     #region LAZY_SINGLETON_AND_AWAKE
@@ -143,6 +146,9 @@ public class GameManager : MonoBehaviour
             //standingsUIList[_______].gameObject.SetActive(true);
             standingsUIList[indx].gameObject.transform.SetAsLastSibling();
             standingsUIList[indx].gameObject.SetActive(true);
+
+            playerRankUIList[indx].gameObject.transform.SetAsLastSibling();
+            playerRankUIList[indx].gameObject.SetActive(true);
             //Step 2:
             //Call  the 'UpdateInfo' function on that ui item and pass the 
             //photon player/car nickname, rank, and whether the car belongs to you
@@ -150,6 +156,12 @@ public class GameManager : MonoBehaviour
             CalculateTime();
             playerRanks[indx].totalTime = totalTime;
             standingsUIList[indx].UpdateInfo(playerRanks[indx].pv.Owner.NickName, playerRanks[indx].rank, playerRanks[indx].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
+            playerRankUIList[indx].UpdateInfo(playerRanks[indx].pv.Owner.NickName, playerRanks[indx].rank, playerRanks[indx].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
+
+            if (rank == playerRanks.Count)
+            {
+                gameOverPanel.SetActive(true);
+            }
         }
 
     }

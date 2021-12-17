@@ -939,7 +939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &291570961
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2014,7 +2014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &567776306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2344,7 +2344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &784862948
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3413,7 +3413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1071644969
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4198,6 +4198,11 @@ MonoBehaviour:
   - {fileID: 202273874}
   - {fileID: 202273873}
   - {fileID: 202273872}
+  playerRankUIList:
+  - {fileID: 567776307}
+  - {fileID: 1071644970}
+  - {fileID: 291570962}
+  - {fileID: 784862949}
   countdownTimerText: {fileID: 202273871}
   playerStartPoints:
   - {fileID: 843706494}
@@ -4210,6 +4215,7 @@ MonoBehaviour:
   - {fileID: 523779623789243299, guid: 1b0225700e1437543aed6e2820ce5808, type: 3}
   - {fileID: 523779623789243299, guid: 9ae5d1079214a984793b1fc4e65b01a4, type: 3}
   myCarInstance: {fileID: 0}
+  gameOverPanel: {fileID: 1897664413}
 --- !u!4 &1187537864
 Transform:
   m_ObjectHideFlags: 0
