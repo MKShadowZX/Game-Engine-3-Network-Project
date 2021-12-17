@@ -402,4 +402,13 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
     }
 
     #endregion
+
+    #region LOAD_SCENE
+
+    public void LoadLevel(string level)
+    {
+        SceneManager.LoadScene(level);
+    }
+
+    #endregion
 }
