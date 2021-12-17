@@ -18,12 +18,31 @@ public class LapController : MonoBehaviourPun
             //To Do:
             //Send an update to refresh the car standings.
             Debug.Log("<color=cyan> Lap trigger crossed. Standings UI to be refreshed </color>");
+            UpdateRank();
         }
         else if(other.gameObject.tag == "FinishTrigger")
         {
             Debug.Log("<color=cyan> Car reached the finish point... </color>");
             EndRace();
         }
+    }
+
+    void UpdateRank()
+    {
+        string currentPlayerNN = photonView.Owner.NickName;
+        object[] data = new object[]
+                   { currentPlayerNN, photonView.ViewID };
+
+        PhotonNetwork.RaiseEvent(
+           (byte)GameManager.raiseEventCodes.raceCheckLapRank
+           , data,
+           new Photon.Realtime.RaiseEventOptions()
+           { Receivers = Photon.Realtime.ReceiverGroup.MasterClient },
+           new ExitGames.Client.Photon.SendOptions()
+           { Reliability = false } //set to false to overwrite previous data 
+            );
+
+        Debug.Log("Update rank was called on " + photonView.ViewID);
     }
 
     /// <summary>

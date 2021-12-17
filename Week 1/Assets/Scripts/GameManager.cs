@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour
     public enum raiseEventCodes
     {
         raceFinishCode = 0,
-        raceFinishUpdateRank = 1
+        raceFinishUpdateRank = 1,
+        raceCheckLapRank = 2,
+        raceLapRankUpdate = 3
     };
 
     private int lastAssignedRank = 0;
@@ -88,16 +90,73 @@ public class GameManager : MonoBehaviour
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        lastAssignedRank++;
+        //lastAssignedRank++;
 
         int indx = playerRanks.FindIndex(x => x.viewID == photonViewID);
 
-        playerRanks[indx].rank = lastAssignedRank;
+        //playerRanks[indx].rank = lastAssignedRank;
 
         object[] data = new object[] { playerRanks[indx].viewID, playerRanks[indx].rank };
         // Raise an event via PhotonNetwork ...
         PhotonNetwork.RaiseEvent(
             (byte)raiseEventCodes.raceFinishCode,
+           data,
+           new Photon.Realtime.RaiseEventOptions() { Receivers = Photon.Realtime.ReceiverGroup.All },
+           SendOptions.SendReliable
+
+            );
+    }
+
+    void UpdateLapRank(int photonViewID)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        int indx = playerRanks.FindIndex(x => x.viewID == photonViewID);
+
+        playerRanks[indx].checkpoint++;
+
+        if (playerRanks[indx].rank == 0)
+        {
+            lastAssignedRank++;
+            playerRanks[indx].rank = lastAssignedRank;
+        }
+
+        for (int i = 0; i < playerRanks.Count; i++)
+        {
+            if (indx != i)
+            {
+                if (playerRanks[indx].checkpoint > playerRanks[i].checkpoint)
+                {
+                    if (playerRanks[indx].rank > playerRanks[i].rank && playerRanks[i].rank != 0)
+                    {
+                        int tempRank = playerRanks[indx].rank;
+                        playerRanks[indx].rank = playerRanks[i].rank;
+                        playerRanks[i].rank = tempRank;
+
+                        for (int j = 0; j < playerRanks.Count; j++)
+                        {
+                            if (i != j)
+                            {
+                                if (playerRanks[i].checkpoint > playerRanks[j].checkpoint)
+                                {
+                                    if (playerRanks[i].rank > playerRanks[j].rank)
+                                    {
+                                        tempRank = playerRanks[i].rank;
+                                        playerRanks[i].rank = playerRanks[j].rank;
+                                        playerRanks[i].rank = tempRank;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        object[] data = new object[] { playerRanks[indx].viewID, playerRanks[indx].rank };
+        // Raise an event via PhotonNetwork ...
+        PhotonNetwork.RaiseEvent(
+            (byte)raiseEventCodes.raceLapRankUpdate,
            data,
            new Photon.Realtime.RaiseEventOptions() { Receivers = Photon.Realtime.ReceiverGroup.All },
            SendOptions.SendReliable
@@ -134,7 +193,7 @@ public class GameManager : MonoBehaviour
             //updated.
             //but on every other non-master client, this is important as those clients
             //won't have the rank data updated until we do the following
-            playerRanks[indx].rank = rank;
+            //playerRanks[indx].rank = rank;
 
             //Next step: Display which player just completed the race....
             Debug.Log(playerRanks[indx].pv.Owner.NickName + " FINISHED  AT POSITION: " +
@@ -161,6 +220,30 @@ public class GameManager : MonoBehaviour
             if (rank == playerRanks.Count)
             {
                 gameOverPanel.SetActive(true);
+            }
+        }
+        else if (photonEventData.Code == (byte)raiseEventCodes.raceCheckLapRank)//raceFinishUpdateRank
+        {
+            object[] incomingData = (object[])photonEventData.CustomData;
+            UpdateLapRank((int)incomingData[1]);
+
+        }
+        else if (photonEventData.Code == (byte)raiseEventCodes.raceLapRankUpdate)
+        {
+            object[] incomingData = (object[])photonEventData.CustomData;
+            int viewID = (int)incomingData[0];
+            int rank = (int)incomingData[1];
+
+            int indx = playerRanks.FindIndex(x => x.viewID == viewID);
+
+            standingsUIList[indx].gameObject.SetActive(true);
+
+            CalculateTime();
+            playerRanks[indx].totalTime = totalTime;
+
+            for (int i = 0; i < playerRanks.Count; i++)
+            {
+                standingsUIList[i].UpdateInfo(playerRanks[i].pv.Owner.NickName, playerRanks[i].rank, playerRanks[i].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
             }
         }
 
