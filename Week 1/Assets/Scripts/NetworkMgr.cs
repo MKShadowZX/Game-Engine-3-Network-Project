@@ -407,7 +407,14 @@ public class NetworkMgr : MonoBehaviourPunCallbacks
 
     public void LoadLevel(string level)
     {
-        SceneManager.LoadScene(level);
+
+        PhotonNetwork.LoadLevel(level);
+
+        /* if (PhotonNetwork.AutomaticallySyncScene)
+         {
+             PhotonNetwork.LoadLevel(level);
+         }
+        */
     }
 
     #endregion
