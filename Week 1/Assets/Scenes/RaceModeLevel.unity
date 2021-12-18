@@ -842,6 +842,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3218855099276072984, guid: 6ee111848a1d3c048aa82a7f4f12ac90, type: 3}
   m_PrefabInstance: {fileID: 202273870}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &202273881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8674560078474987955, guid: 6ee111848a1d3c048aa82a7f4f12ac90, type: 3}
+  m_PrefabInstance: {fileID: 202273870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &258851907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4228,6 +4233,7 @@ MonoBehaviour:
   - {fileID: 523779623789243299, guid: 9ae5d1079214a984793b1fc4e65b01a4, type: 3}
   myCarInstance: {fileID: 0}
   gameOverPanel: {fileID: 1897664413}
+  standingUIPanel: {fileID: 202273881}
 --- !u!4 &1187537864
 Transform:
   m_ObjectHideFlags: 0

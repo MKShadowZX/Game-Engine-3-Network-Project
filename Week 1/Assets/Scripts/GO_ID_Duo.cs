@@ -10,6 +10,7 @@ public class GO_ID_Duo
     public GameObject go;
     public int viewID;
     public string totalTime;
+    public bool isFinished;
 
     public PhotonView pv { get => go.GetComponent<PhotonView>(); }
 
@@ -20,5 +21,6 @@ public class GO_ID_Duo
         rank = 0;
         totalTime = "00:00.0";
         checkpoint = 0;
+        isFinished = false;
     }
 }

@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     public List<GO_ID_Duo> playerRanks;
 
     public GameObject gameOverPanel;
+    public GameObject standingUIPanel;
+    int allDoneCount;
 
     //Lazy Singleton
     #region LAZY_SINGLETON_AND_AWAKE
@@ -90,13 +92,11 @@ public class GameManager : MonoBehaviour
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        //lastAssignedRank++;
-
         int indx = playerRanks.FindIndex(x => x.viewID == photonViewID);
 
-        //playerRanks[indx].rank = lastAssignedRank;
+        playerRanks[indx].checkpoint++;
 
-        object[] data = new object[] { playerRanks[indx].viewID, playerRanks[indx].rank };
+        object[] data = new object[] { playerRanks[indx].viewID, playerRanks[indx].rank, playerRanks[indx].checkpoint };
         // Raise an event via PhotonNetwork ...
         PhotonNetwork.RaiseEvent(
             (byte)raiseEventCodes.raceFinishCode,
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
             object[] incomingData = (object[])photonEventData.CustomData;
             int viewID = (int)incomingData[0];
             int rank = (int)incomingData[1];
-
+            int checkpoint = (int)incomingData[2];
 
             int indx = playerRanks.FindIndex(x => x.viewID == viewID);
             //This will have no effect on the masterclient as we already have the rank
@@ -162,32 +162,57 @@ public class GameManager : MonoBehaviour
             //but on every other non-master client, this is important as those clients
             //won't have the rank data updated until we do the following
             playerRanks[indx].rank = rank;
+            playerRanks[indx].checkpoint = checkpoint;
 
             //Next step: Display which player just completed the race....
             Debug.Log(playerRanks[indx].pv.Owner.NickName + " FINISHED  AT POSITION: " +
                 rank);
 
+            bool swap = true;
+
+            while (swap)
+            {
+                swap = false;
+
+                for (int i = playerRanks.Count - 1; i > 0; i--)
+                {
+                    if (playerRanks[i].checkpoint > playerRanks[i - 1].checkpoint)
+                    {
+                        swap = true;
+                        var tempRank = playerRanks[i - 1];
+                        playerRanks[i - 1] = playerRanks[i];
+                        playerRanks[i] = tempRank;
+                    }
+                }
+            }
+
             //TO-DO (part of beta sprint 2 assignment)
             //Step 1:
             //Turn on the respective standing/rank's UI game Object
             //standingsUIList[_______].gameObject.SetActive(true);
-            standingsUIList[indx].gameObject.transform.SetAsLastSibling();
-            standingsUIList[indx].gameObject.SetActive(true);
-
-            playerRankUIList[indx].gameObject.transform.SetAsLastSibling();
-            playerRankUIList[indx].gameObject.SetActive(true);
+            
             //Step 2:
             //Call  the 'UpdateInfo' function on that ui item and pass the 
             //photon player/car nickname, rank, and whether the car belongs to you
             //standingsUIList[_______].UpdateInfo( ________, ________ , __________);
             CalculateTime();
             playerRanks[indx].totalTime = totalTime;
-            standingsUIList[indx].UpdateInfo(playerRanks[indx].pv.Owner.NickName, playerRanks[indx].rank, playerRanks[indx].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
-            playerRankUIList[indx].UpdateInfo(playerRanks[indx].pv.Owner.NickName, playerRanks[indx].rank, playerRanks[indx].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
+            playerRanks[indx].isFinished = true;
+            allDoneCount++;
 
-            if (rank == playerRanks.Count)
+            for (int i = 0; i < playerRanks.Count; i++)
             {
-                gameOverPanel.SetActive(true);
+                playerRanks[i].rank = i + 1;
+                standingsUIList[i].UpdateInfo(playerRanks[i].pv.Owner.NickName, playerRanks[i].rank, playerRanks[i].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
+                playerRankUIList[i].UpdateInfo(playerRanks[i].pv.Owner.NickName, playerRanks[i].rank, playerRanks[i].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
+                standingsUIList[i].gameObject.SetActive(true);
+                playerRankUIList[i].gameObject.SetActive(true);
+
+                if (allDoneCount == playerRanks.Count)
+                {
+                    standingUIPanel.SetActive(false);
+                    gameOverPanel.SetActive(true);
+                }
             }
         }
         else if (photonEventData.Code == (byte)raiseEventCodes.raceCheckLapRank)//raceFinishUpdateRank
@@ -208,7 +233,25 @@ public class GameManager : MonoBehaviour
             playerRanks[indx].rank = rank;
             playerRanks[indx].checkpoint = checkpoint;
 
-            for (int i = 0; i < playerRanks.Count; i++)
+            bool swap = true;
+
+            while (swap)
+            {
+                swap = false;
+
+                for (int i = playerRanks.Count - 1; i > 0; i--)
+                {
+                    if (playerRanks[i].checkpoint > playerRanks[i - 1].checkpoint)
+                    {
+                        swap = true;
+                        var tempRank = playerRanks[i - 1];
+                        playerRanks[i - 1] = playerRanks[i];
+                        playerRanks[i] = tempRank;
+                    }
+                }
+            }
+
+            /*for (int i = 0; i < playerRanks.Count; i++)
             {
                 if (indx != i)
                 {
@@ -226,7 +269,7 @@ public class GameManager : MonoBehaviour
                                 {
                                     if (playerRanks[i].checkpoint > playerRanks[j].checkpoint)
                                     {
-                                        if (playerRanks[i].rank > playerRanks[j].rank)
+                                        if (playerRanks[i].rank > playerRanks[j].rank && playerRanks[i].rank != 0)
                                         {
                                             tempRank = playerRanks[i].rank;
                                             playerRanks[i].rank = playerRanks[j].rank;
@@ -238,22 +281,25 @@ public class GameManager : MonoBehaviour
                         }
                     }
                 }
-            }
-
-            standingsUIList[indx].gameObject.SetActive(true);
+            }*/
 
             CalculateTime();
-            playerRanks[indx].totalTime = totalTime;
 
             for (int i = 0; i < playerRanks.Count; i++)
             {
-                standingsUIList[i].UpdateInfo(playerRanks[i].pv.Owner.NickName, playerRanks[i].rank, playerRanks[i].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
+                if (!playerRanks[i].isFinished)
+                {
+                    playerRanks[i].rank = i + 1;
+                    playerRanks[i].totalTime = totalTime;
+                    standingsUIList[i].UpdateInfo(playerRanks[i].pv.Owner.NickName, playerRanks[i].rank, playerRanks[i].totalTime, PhotonNetwork.LocalPlayer.IsLocal);
+                    standingsUIList[i].gameObject.SetActive(true);
+                }
             }
         }
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isRaceStarting)
         {
