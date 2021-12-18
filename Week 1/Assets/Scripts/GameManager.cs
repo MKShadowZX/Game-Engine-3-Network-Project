@@ -121,39 +121,7 @@ public class GameManager : MonoBehaviour
             playerRanks[indx].rank = lastAssignedRank;
         }
 
-        for (int i = 0; i < playerRanks.Count; i++)
-        {
-            if (indx != i)
-            {
-                if (playerRanks[indx].checkpoint > playerRanks[i].checkpoint)
-                {
-                    if (playerRanks[indx].rank > playerRanks[i].rank && playerRanks[i].rank != 0)
-                    {
-                        int tempRank = playerRanks[indx].rank;
-                        playerRanks[indx].rank = playerRanks[i].rank;
-                        playerRanks[i].rank = tempRank;
-
-                        for (int j = 0; j < playerRanks.Count; j++)
-                        {
-                            if (i != j)
-                            {
-                                if (playerRanks[i].checkpoint > playerRanks[j].checkpoint)
-                                {
-                                    if (playerRanks[i].rank > playerRanks[j].rank)
-                                    {
-                                        tempRank = playerRanks[i].rank;
-                                        playerRanks[i].rank = playerRanks[j].rank;
-                                        playerRanks[i].rank = tempRank;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        object[] data = new object[] { playerRanks[indx].viewID, playerRanks[indx].rank };
+        object[] data = new object[] { playerRanks[indx].viewID, playerRanks[indx].rank, playerRanks[indx].checkpoint };
         // Raise an event via PhotonNetwork ...
         PhotonNetwork.RaiseEvent(
             (byte)raiseEventCodes.raceLapRankUpdate,
@@ -193,7 +161,7 @@ public class GameManager : MonoBehaviour
             //updated.
             //but on every other non-master client, this is important as those clients
             //won't have the rank data updated until we do the following
-            //playerRanks[indx].rank = rank;
+            playerRanks[indx].rank = rank;
 
             //Next step: Display which player just completed the race....
             Debug.Log(playerRanks[indx].pv.Owner.NickName + " FINISHED  AT POSITION: " +
@@ -233,8 +201,44 @@ public class GameManager : MonoBehaviour
             object[] incomingData = (object[])photonEventData.CustomData;
             int viewID = (int)incomingData[0];
             int rank = (int)incomingData[1];
+            int checkpoint = (int)incomingData[2];
 
             int indx = playerRanks.FindIndex(x => x.viewID == viewID);
+
+            playerRanks[indx].rank = rank;
+            playerRanks[indx].checkpoint = checkpoint;
+
+            for (int i = 0; i < playerRanks.Count; i++)
+            {
+                if (indx != i)
+                {
+                    if (playerRanks[indx].checkpoint > playerRanks[i].checkpoint)
+                    {
+                        if (playerRanks[indx].rank > playerRanks[i].rank && playerRanks[i].rank != 0)
+                        {
+                            int tempRank = playerRanks[indx].rank;
+                            playerRanks[indx].rank = playerRanks[i].rank;
+                            playerRanks[i].rank = tempRank;
+
+                            for (int j = 0; j < playerRanks.Count; j++)
+                            {
+                                if (i != j)
+                                {
+                                    if (playerRanks[i].checkpoint > playerRanks[j].checkpoint)
+                                    {
+                                        if (playerRanks[i].rank > playerRanks[j].rank)
+                                        {
+                                            tempRank = playerRanks[i].rank;
+                                            playerRanks[i].rank = playerRanks[j].rank;
+                                            playerRanks[i].rank = tempRank;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             standingsUIList[indx].gameObject.SetActive(true);
 
